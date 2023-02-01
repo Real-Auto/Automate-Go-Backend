@@ -18,13 +18,22 @@ func EnvMongoURI() string {
     return os.Getenv("MONGOURI")
 }
 
-func EnvAuth0ClientID() string {
+func EnvAuth0ClientId() string {
     err := godotenv.Load()
     if err != nil {
         log.Fatal("Error loading .env file")
     }
 
     return os.Getenv("AUTH0_CLIENT_ID")
+}
+
+func EnvAuth0ClientSecret() string {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("AUTH0_CLIENT_SECRET")
 }
 
 func EnvAuth0Connection() string {
@@ -36,6 +45,15 @@ func EnvAuth0Connection() string {
     return os.Getenv("CONNECTION")
 }
 
+func EnvAuth0ApiAudience() string {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("API_AUDIENCE")
+}
+
 func EnvAuth0SignupEndpoint() string {
     err := godotenv.Load()
     if err != nil {
@@ -44,6 +62,25 @@ func EnvAuth0SignupEndpoint() string {
 
     return os.Getenv("AUTH0_SIGN_UP_ENDPOINT")
 }
+
+func EnvAuth0LoginEndpoint() string {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("AUTH0_LOGIN_ENDPOINT")
+}
+
+func EnvAuth0ChangePasswordEndpoint() string {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("AUTH0_CHANGE_PASSWORD_ENDPOINT")
+}
+
 
 
 
