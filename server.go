@@ -1,11 +1,15 @@
 package main
 
 import (
-    "Automate-Go-Backend/configs"
-    "Automate-Go-Backend/routes"
-    "github.com/gofiber/fiber/v2"
+	"Automate-Go-Backend/configs"
+	"Automate-Go-Backend/routes"
+
+	"github.com/gofiber/fiber/v2"
+
 )
+
 func main() {
+    
 	app := fiber.New()
 
 	//run database

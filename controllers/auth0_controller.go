@@ -34,13 +34,17 @@ func SignUp(c *fiber.Ctx) error {
 		Password:   user.Password,
 		GivenName:  user.FirstName,
 		FamilyName: user.LastName,
-		MetaData: map[string]string{
-			"dateOfBirth": user.DateOfBirth,
+		MetaData:  models.UserMetaData{
+			Services:     user.Services,
+			DateOfBirth: user.DateOfBirth,
+			PhotoFileUrl:  user.PhotoFileUrl,
+			Phone: user.Phone,
 		},
 	}
 
 	// Encode the user object into a JSON payload
 	payload, err := json.Marshal(newUser)
+	fmt.Println(payload)
 	if err != nil {
 		fmt.Println(err)
 		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error converting payload to JSON", Data: &fiber.Map{"data": err.Error()}})
@@ -78,7 +82,7 @@ func SignUp(c *fiber.Ctx) error {
 	if responseData["code"] == "user_exists" {
 		return c.Status(http.StatusConflict).JSON(responses.UserResponse{Status: http.StatusConflict, Message: "error", Data: &fiber.Map{"data": "user already exists"}})
 	}
-	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": responseData}})
+	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success User Created", Data: &fiber.Map{"data": responseData}})
 
 }
 
