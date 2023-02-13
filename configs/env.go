@@ -6,7 +6,6 @@ import (
     "github.com/joho/godotenv"
 )
 
-
 // Write functions for getting environment variables here
 
 func EnvMongoURI() string {
@@ -54,6 +53,15 @@ func EnvAuth0ApiAudience() string {
     return os.Getenv("API_AUDIENCE")
 }
 
+func EnvAuth0GetUserInfoEndpoint() string {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("AUTH0_GET_USER_INFO_ENDPOINT")
+}
+
 func EnvAuth0SignupEndpoint() string {
     err := godotenv.Load()
     if err != nil {
@@ -80,6 +88,25 @@ func EnvAuth0ChangePasswordEndpoint() string {
 
     return os.Getenv("AUTH0_CHANGE_PASSWORD_ENDPOINT")
 }
+
+func EnvAuth0UpdateUserEndpoint() string {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("AUTH0_UPDATE_USER_ENDPOINT")
+}
+
+func EnvAuth0DeleteUserEndpoint() string {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("AUTH0_DELETE_USER_ENDPOINT")
+}
+
 
 
 
