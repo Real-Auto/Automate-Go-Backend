@@ -6,22 +6,23 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
+	_ "Automate-Go-Backend/docs"
 )
 
 func main() {
-    
+
 	app := fiber.New()
 
 	//run database
 	configs.ConnectDB()
 
-    //routes
-    routes.UserRoute(app)
-    routes.Auth0Route(app)
+	//routes
+	routes.UserRoute(app)
+	routes.Auth0Route(app)
 
-    app.Get("/", func(c *fiber.Ctx) error {
-        return c.JSON(&fiber.Map{"data": "Hello from Fiber & mongoDB"})
-    })
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(&fiber.Map{"data": "Hello from Fiber & mongoDB"})
+	})
 
-    app.Listen(":3000")
+	app.Listen(":3000")
 }
