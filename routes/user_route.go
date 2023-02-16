@@ -1,13 +1,13 @@
 package routes
 
-import "github.com/gofiber/fiber/v2"
-
 import (
-    "Automate-Go-Backend/controllers" 
+	"Automate-Go-Backend/controllers"
+
+	"github.com/gofiber/fiber/v2"
 )
 
-func UserRoute(app *fiber.App) {
-    //All routes related to users comes here
+func userRoute(app *fiber.App) {
+	//All routes related to users comes here
 	// app.Post("/user", controllers.CreateUser)
 	// app.Patch("/user/:userId", controllers.EditProfileInformation)
 	app.Delete("/user/:userId", controllers.DeleteAUser)
