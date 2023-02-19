@@ -15,6 +15,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/go-playground/validator"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -37,7 +38,7 @@ import (
 //	    "$ref": "#/definitions/Auth0User"
 func GetUser(c *fiber.Ctx) error {
 	var user models.GetAuth0UserFieldsPayload
-
+	validate := validator.New()
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err.Error()}})
@@ -119,7 +120,7 @@ func GetUser(c *fiber.Ctx) error {
 //	  description: Success message
 func SignUp(c *fiber.Ctx) error {
 	var user models.SignUpPayload
-
+	validate := validator.New()
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err.Error()}})
@@ -208,7 +209,7 @@ func SignUp(c *fiber.Ctx) error {
 //	  description: Success message
 func Login(c *fiber.Ctx) error {
 	var user models.LoginPayload
-
+	validate := validator.New()
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err.Error()}})
@@ -287,7 +288,7 @@ func Login(c *fiber.Ctx) error {
 //	  description: Success message
 func ChangePassword(c *fiber.Ctx) error {
 	var user models.ChangePasswordPayload
-
+	validate := validator.New()
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err.Error()}})
