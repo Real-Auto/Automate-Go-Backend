@@ -186,6 +186,13 @@ paths:
             produces:
                 - application/json
             summary: changePassword endpoint
+    /deleteUser:
+        post:
+            description: This endpoint returns a confirmation message.
+            operationId: user
+            produces:
+                - application/json
+            summary: delete User endpoint
     /login:
         post:
             description: This endpoint returns a confirmation message.

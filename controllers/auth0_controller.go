@@ -363,6 +363,21 @@ func UpdateUser(c *fiber.Ctx) error {
 	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": "data"}})
 }
 
+// swagger:operation POST /deleteUser user
+//
+// # delete User endpoint
+//
+// This endpoint returns a confirmation message.
+//
+// ---
+// produces:
+// - application/json
+// parameters:
+//
+// responses:
+//
+//	200:
+//	  description: Success message
 func DeleteUser(c *fiber.Ctx) error {
 	return nil
 	// userId := c.Params("user_id")
