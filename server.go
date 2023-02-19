@@ -5,8 +5,6 @@ import (
 	"Automate-Go-Backend/routes"
 
 	"github.com/gofiber/fiber/v2"
-
-	_ "Automate-Go-Backend/docs"
 )
 
 func main() {

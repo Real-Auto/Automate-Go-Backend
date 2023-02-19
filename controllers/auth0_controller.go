@@ -4,6 +4,7 @@ import (
 	"Automate-Go-Backend/configs"
 	"Automate-Go-Backend/models"
 	"Automate-Go-Backend/responses"
+
 	// "go.mongodb.org/mongo-driver/bson"
 	// "go.mongodb.org/mongo-driver/bson/primitive"
 	"bytes"
@@ -17,6 +18,23 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// swagger:operation GET /GetUser user GetUser
+//
+// Get a user.
+//
+// This endpoint returns a user object.
+//
+// ---
+// produces:
+// - application/json
+// parameters:
+//
+// responses:
+//
+//	200:
+//	  description: User object
+//	  schema:
+//	    "$ref": "#/definitions/Auth0User"
 func GetUser(c *fiber.Ctx) error {
 	var user models.GetAuth0UserFieldsPayload
 
@@ -82,9 +100,23 @@ func GetUser(c *fiber.Ctx) error {
 
 	return c.Status(http.StatusOK).JSON(responses.UserResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": responseData}})
 
-	
 }
 
+// swagger:operation POST /signUp user signUp
+//
+// # Sign up endpoint
+//
+// This endpoint returns a confirmation message.
+//
+// ---
+// produces:
+// - application/json
+// parameters:
+//
+// responses:
+//
+//	200:
+//	  description: Success message
 func SignUp(c *fiber.Ctx) error {
 	var user models.SignUpPayload
 
@@ -99,19 +131,19 @@ func SignUp(c *fiber.Ctx) error {
 	}
 
 	// create user for model
-	newUser := models.Auth0User {
+	newUser := models.Auth0User{
 		ClientId:   configs.EnvAuth0ClientId(),
 		Connection: configs.EnvAuth0Connection(),
 		Email:      user.Email,
 		Password:   user.Password,
 		GivenName:  user.FirstName,
 		FamilyName: user.LastName,
-		Name: user.Name,
-		MetaData:  models.UserMetaData{
+		Name:       user.Name,
+		MetaData: models.UserMetaData{
 			Services:     user.Services,
-			DateOfBirth: user.DateOfBirth,
-			PhotoFileUrl:  user.PhotoFileUrl,
-			Phone: user.Phone,
+			DateOfBirth:  user.DateOfBirth,
+			PhotoFileUrl: user.PhotoFileUrl,
+			Phone:        user.Phone,
 		},
 	}
 
@@ -159,6 +191,21 @@ func SignUp(c *fiber.Ctx) error {
 
 }
 
+// swagger:operation POST /login user Login
+//
+// # Login in endpoint
+//
+// This endpoint returns a confirmation message.
+//
+// ---
+// produces:
+// - application/json
+// parameters:
+//
+// responses:
+//
+//	200:
+//	  description: Success message
 func Login(c *fiber.Ctx) error {
 	var user models.LoginPayload
 
@@ -174,12 +221,12 @@ func Login(c *fiber.Ctx) error {
 
 	// create user for model
 	newUser := models.Auth0UserLogin{
-		GrantType:   "password",
-		ClientId: configs.EnvAuth0ClientId(),
-		ClientSecret:   configs.EnvAuth0ClientSecret(),
+		GrantType:    "password",
+		ClientId:     configs.EnvAuth0ClientId(),
+		ClientSecret: configs.EnvAuth0ClientSecret(),
 		// Audience:   configs.EnvAuth0ApiAudience(),
-		Scope: "openid profile email",
-		Email:  user.Email,
+		Scope:    "openid profile email",
+		Email:    user.Email,
 		Password: user.Password,
 	}
 
@@ -223,6 +270,21 @@ func Login(c *fiber.Ctx) error {
 
 }
 
+// swagger:operation POST /changePassword user
+//
+// # changePassword endpoint
+//
+// This endpoint returns a confirmation message.
+//
+// ---
+// produces:
+// - application/json
+// parameters:
+//
+// responses:
+//
+//	200:
+//	  description: Success message
 func ChangePassword(c *fiber.Ctx) error {
 	var user models.ChangePasswordPayload
 
@@ -238,9 +300,9 @@ func ChangePassword(c *fiber.Ctx) error {
 
 	// create user for model
 	newUser := models.Auth0UserChangePassword{
-        ClientId: configs.EnvAuth0ClientId(),
-        Email: user.Email,
-        Connection: configs.EnvAuth0Connection(),
+		ClientId:   configs.EnvAuth0ClientId(),
+		Email:      user.Email,
+		Connection: configs.EnvAuth0Connection(),
 	}
 
 	// Encode the user object into a JSON payload
@@ -277,11 +339,25 @@ func ChangePassword(c *fiber.Ctx) error {
 		return c.Status(http.StatusInternalServerError).JSON(responses.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
 	}
 
-
 	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": responseData}})
 
 }
 
+// swagger:operation POST /updateUser user
+//
+// # update User endpoint
+//
+// This endpoint returns a confirmation message.
+//
+// ---
+// produces:
+// - application/json
+// parameters:
+//
+// responses:
+//
+//	200:
+//	  description: Success message
 func UpdateUser(c *fiber.Ctx) error {
 
 	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": "data"}})
@@ -323,4 +399,3 @@ func DeleteUser(c *fiber.Ctx) error {
 
 	// return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": responseData}})
 }
-
