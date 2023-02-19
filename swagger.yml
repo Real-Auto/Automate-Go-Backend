@@ -1,3 +1,6 @@
+basePath: /v1
+consumes:
+    - application/json
 definitions:
     Auth0User:
         properties:
@@ -169,6 +172,9 @@ definitions:
                 x-go-name: Services
         type: object
         x-go-package: Automate-Go-Backend/models
+info:
+    description: 'Title: AutoMate API'
+    version: 0.0.1
 paths:
     /GetUser:
         get:
@@ -218,4 +224,26 @@ paths:
             produces:
                 - application/json
             summary: update User endpoint
+produces:
+    - application/json
+securityDefinitions:
+    api_key:
+        in: header
+        name: KEY
+        type: apiKey
+    oauth2:
+        authorizationUrl: /oauth2/auth
+        flow: accessCode
+        in: header
+        scopes:
+            bar: foo
+        tokenUrl: /oauth2/token
+        type: oauth2
 swagger: "2.0"
+x-meta-array:
+    - value1
+    - value2
+x-meta-array-obj:
+    - name: obj
+      value: field
+x-meta-value: value
