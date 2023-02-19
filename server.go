@@ -15,8 +15,7 @@ func main() {
 	configs.ConnectDB()
 
 	//routes
-	routes.UserRoute(app)
-	routes.Auth0Route(app)
+	routes.RouteList(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(&fiber.Map{"data": "Hello from Fiber & mongoDB"})
