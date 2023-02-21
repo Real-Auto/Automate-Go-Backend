@@ -43,6 +43,9 @@ func EnvAuth0Connection() string {
 
     return os.Getenv("CONNECTION")
 }
+func EnvAuth0Domain() string {
+    return os.Getenv("AUTH0_DOMAIN")
+}
 
 func EnvAuth0ApiAudience() string {
     err := godotenv.Load()
@@ -106,6 +109,8 @@ func EnvAuth0DeleteUserEndpoint() string {
 
     return os.Getenv("AUTH0_DELETE_USER_ENDPOINT")
 }
+
+
 
 
 

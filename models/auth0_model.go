@@ -54,16 +54,6 @@ type SignUpPayload struct {
 	Password     string `bson:"password" json:"password" validate:"required"`
 }
 
-type EditUserPayload struct {
-	FirstName    string `bson:"first_name,omitempty" json:"first_name,omitempty"`
-	LastName     string `bson:"last_name,omitempty" json:"last_name,omitempty"`
-	Name         string `bson:"name,omitempty" json:"name,omitempty"`
-	DateOfBirth  string `bson:"date_of_birth,omitempty" json:"date_of_birth,omitempty"`
-	Phone        string `bson:"phone,omitempty" json:"phone,omitempty"`
-	PhotoFileUrl string `bson:"photo_file_url,omitempty" json:"photo_file_url,omitempty" `
-	Services     string `bson:"services,omitempty" json:"services,omitempty"`
-}
-
 type LoginPayload struct {
 	Email string `json:"email" validate:"required"`
     Password string `json:"password" validate:"required"`
@@ -75,4 +65,21 @@ type ChangePasswordPayload struct {
 
 type GetAuth0UserFieldsPayload struct {
     AccessToken string `json:"access_token" validate:"required"`
+}
+
+type DeleteAuth0UserPayload struct {
+	UserId string `bson:"user_id" json:"user_id" validate:"required"`
+	AccessToken string `bson:"access_token" json:"access_token"`
+}
+
+type UpdateAuth0UserPayload struct {
+	UserId string `bson:"user_id" json:"user_id" validate:"required"`
+	AccessToken string `bson:"access_token" json:"access_token"`
+	FirstName    string `bson:"first_name,omitempty" json:"first_name,omitempty"`
+	LastName     string `bson:"last_name,omitempty" json:"last_name,omitempty"`
+	Name         string `bson:"name,omitempty" json:"name,omitempty"`
+	DateOfBirth  string `bson:"date_of_birth,omitempty" json:"date_of_birth,omitempty"`
+	Phone        string `bson:"phone,omitempty" json:"phone,omitempty"`
+	PhotoFileUrl string `bson:"photo_file_url,omitempty" json:"photo_file_url,omitempty" `
+	Services     string `bson:"services,omitempty" json:"services,omitempty"`
 }

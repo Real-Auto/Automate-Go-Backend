@@ -14,6 +14,7 @@ func Auth0Route(app *fiber.App) {
     app.Post("/changePassword", controllers.ChangePassword)
     app.Patch("/updateUser", controllers.UpdateUser)
     app.Delete("/deleteUser", controllers.DeleteUser)
+    //implement logout endpoint
 
 
 }
