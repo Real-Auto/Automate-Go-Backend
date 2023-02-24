@@ -10,16 +10,16 @@ type UserMetaData struct {
 
 // swagger:model
 type Auth0User struct {
-	ID         string       `bson:"_id,omitempty" json:"_id,omitempty"`
-	Tenant     string       `bson:"tenant,omitempty" json:"tenant,omitempty"`
-	ClientId   string       `bson:"client_id" json:"client_id" validate:"required"`
-	Connection string       `bson:"connection" json:"connection" validate:"required"`
-	Email      string       `bson:"email" json:"email" validate:"required"`
-	Password   string       `bson:"password" json:"password" validate:"required"`
-	Name       string       `bson:"name" json:"name" validate:"required"`
-	GivenName  string       `bson:"given_name" json:"given_name" validate:"required"`
-	FamilyName string       `bson:"family_name" json:"family_name" validate:"required"`
-	MetaData   UserMetaData `bson:"user_metadata" json:"user_metadata" validate:"required"`
+	ID           string       `bson:"_id,omitempty" json:"_id,omitempty"`
+	Tenant       string       `bson:"tenant,omitempty" json:"tenant,omitempty"`
+	ClientId     string       `bson:"client_id" json:"client_id" validate:"required"`
+	Connection   string       `bson:"connection" json:"connection" validate:"required"`
+	Email        string       `bson:"email" json:"email" validate:"required"`
+	Password     string       `bson:"password" json:"password" validate:"required"`
+	Name         string       `bson:"name" json:"name" validate:"required"`
+	GivenName    string       `bson:"given_name" json:"given_name" validate:"required"`
+	FamilyName   string       `bson:"family_name" json:"family_name" validate:"required"`
+	UserMetaData UserMetaData `bson:"user_metadata" json:"user_metadata" validate:"required"`
 }
 
 // swagger:model

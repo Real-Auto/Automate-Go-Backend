@@ -1,38 +1,39 @@
-//	Title: AutoMate API
-//	BasePath: /v1
-//	Version: 0.0.1
-//
-//	Consumes:
-//	- application/json
-//
-//	Produces:
-//	- application/json
-//
-//
-//	SecurityDefinitions:
-//	api_key:
-//	     type: apiKey
-//	     name: KEY
-//	     in: header
-//	oauth2:
-//	    type: oauth2
-//	    authorizationUrl: /oauth2/auth
-//	    tokenUrl: /oauth2/token
-//	    in: header
-//	    scopes:
-//	      bar: foo
-//	    flow: accessCode
-//
-//	Extensions:
-//	x-meta-value: value
-//	x-meta-array:
-//	  - value1
-//	  - value2
-//	x-meta-array-obj:
-//	  - name: obj
-//	    value: field
-//
-// swagger:meta
+/*
+Documentation of Automate API
+
+swagger: '2.0'
+basePath: /
+
+schemes:
+
+	http
+
+info:
+
+	version: 0.0.1
+	title: AutoMate API
+
+HOST: 0.0.0.0
+PORT: 8080
+
+Consumes:
+- application/json
+
+Produces:
+- application/json
+
+Extensions:
+x-meta-value: value
+x-meta-array:
+  - value1
+  - value2
+
+x-meta-array-obj:
+  - name: obj
+    value: field
+
+swagger:meta
+*/
 package main
 
 import (

@@ -19,7 +19,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// swagger:operation GET /GetUser user GetUser
+// swagger:operation GET /GetUser getUser
 //
 // Get a user.
 //
@@ -103,7 +103,7 @@ func GetUser(c *fiber.Ctx) error {
 
 }
 
-// swagger:operation POST /signUp user signUp
+// swagger:operation POST /signUp userSignUp
 //
 // # Sign up endpoint
 //
@@ -140,7 +140,7 @@ func SignUp(c *fiber.Ctx) error {
 		GivenName:  user.FirstName,
 		FamilyName: user.LastName,
 		Name:       user.Name,
-		MetaData: models.UserMetaData{
+		UserMetaData: models.UserMetaData{
 			Services:     user.Services,
 			DateOfBirth:  user.DateOfBirth,
 			PhotoFileUrl: user.PhotoFileUrl,
@@ -192,7 +192,7 @@ func SignUp(c *fiber.Ctx) error {
 
 }
 
-// swagger:operation POST /login user Login
+// swagger:operation POST /login userLogin
 //
 // # Login in endpoint
 //
@@ -271,7 +271,7 @@ func Login(c *fiber.Ctx) error {
 
 }
 
-// swagger:operation POST /changePassword user
+// swagger:operation POST /changePassword changePassword
 //
 // # changePassword endpoint
 //
@@ -344,7 +344,7 @@ func ChangePassword(c *fiber.Ctx) error {
 
 }
 
-// swagger:operation POST /updateUser user
+// swagger:operation POST /updateUser userUpdate
 //
 // # update User endpoint
 //
@@ -364,7 +364,7 @@ func UpdateUser(c *fiber.Ctx) error {
 	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": "data"}})
 }
 
-// swagger:operation POST /deleteUser user
+// swagger:operation POST /deleteUser deleteUser
 //
 // # delete User endpoint
 //
