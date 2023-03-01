@@ -1,9 +1,9 @@
 package models
 
 type UserMetaData struct {
-	Services      string `bson:"services" json:"services" validate:"required"`
+	Services     string `bson:"services" json:"services" validate:"required"`
 	DateOfBirth  string `bson:"date_of_birth" json:"date_of_birth" validate:"required"`
-	PhotoFileUrl     string `bson:"photo_file_url" json:"photo_file_url" validate:"required"`
+	PhotoFileUrl string `bson:"photo_file_url" json:"photo_file_url" validate:"required"`
 	Phone  string `bson:"phone" json:"phone" validate:"required"`
 }
 
@@ -74,12 +74,19 @@ type DeleteAuth0UserPayload struct {
 
 type UpdateAuth0UserPayload struct {
 	UserId string `bson:"user_id" json:"user_id" validate:"required"`
-	AccessToken string `bson:"access_token" json:"access_token"`
 	FirstName    string `bson:"first_name,omitempty" json:"first_name,omitempty"`
 	LastName     string `bson:"last_name,omitempty" json:"last_name,omitempty"`
 	Name         string `bson:"name,omitempty" json:"name,omitempty"`
 	DateOfBirth  string `bson:"date_of_birth,omitempty" json:"date_of_birth,omitempty"`
 	Phone        string `bson:"phone,omitempty" json:"phone,omitempty"`
-	PhotoFileUrl string `bson:"photo_file_url,omitempty" json:"photo_file_url,omitempty" `
+	PhotoFileUrl string `bson:"photo_file_url,omitempty" json:"photo_file_url,omitempty"`
 	Services     string `bson:"services,omitempty" json:"services,omitempty"`
 }
+
+type GetManagementApiTokenPayload struct {
+	GrantType string `bson:"grant_type" json:"grant_type" validate:"required"`
+	ClientId string `bson:"client_id" json:"client_id" validate:"required"`
+	ClientSecret string `bson:"client_secret" json:"client_secret" validate:"required"`
+	Audience string `bson:"audience" json:"audience" validate:"required"`
+}
+
