@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Auth0Route(app *fiber.App) {
+func auth0Route(app *fiber.App) {
     // Group endpoints that require authentication
 	userPrivate := app.Group("/user-private", middleware.ValidateToken(configs.EnvGetUserScopes()))
 
@@ -23,7 +23,5 @@ func Auth0Route(app *fiber.App) {
     // public routes
     app.Post("/signUp", controllers.SignUp)
     app.Post("/login", controllers.Login)
-
-
 
 }

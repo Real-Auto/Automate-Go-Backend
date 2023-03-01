@@ -3,19 +3,17 @@ module Automate-Go-Backend
 go 1.19
 
 require (
-	github.com/auth0-community/go-auth0 v1.0.0
+	github.com/auth0/go-auth0 v0.15.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/gofiber/fiber/v2 v2.42.0
 	github.com/joho/godotenv v1.4.0
 	go.mongodb.org/mongo-driver v1.11.1
-	gopkg.in/auth0.v5 v5.21.1
 )
 
 require (
 	github.com/PuerkitoBio/rehttp v1.1.0 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/auth0/go-auth0 v0.15.1 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -34,7 +32,6 @@ require (
 	github.com/rivo/uniseg v0.4.3 // indirect
 	github.com/savsgio/dictpool v0.0.0-20221023140959-7bf2e61cea94 // indirect
 	github.com/savsgio/gotils v0.0.0-20220530130905-52f3993e8d6d // indirect
-	github.com/stretchr/testify v1.8.1 // indirect
 	github.com/tinylib/msgp v1.1.6 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.44.0 // indirect
@@ -51,5 +48,4 @@ require (
 	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
-	gopkg.in/square/go-jose.v2 v2.1.7 // indirect
 )
