@@ -12,7 +12,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"bytes"
 	// "strings"
-	// "reflect"
+	"reflect"
 	//"gopkg.in/auth0.v5"
 	// "gopkg.in/auth0.v5/management"
 	// "github.com/auth0/go-auth0"
@@ -29,8 +29,10 @@ var userCollection *mongo.Collection = configs.GetCollection(configs.DB, "users"
 var validate = validator.New()
 
 func Temp(c *fiber.Ctx) error {
-	res, err := middleware.GetManagementApiToken(configs.EnvAuth0ClientId(), configs.EnvAuth0ClientSecret())
+	res, err := middleware.GetManagementApiToken()
 	if err != nil {
+		fmt.Println(reflect.TypeOf(err))
+		fmt.Println(err)
 		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err}})
 	}
 
@@ -93,18 +95,20 @@ func GetUser(c *fiber.Ctx) error {
 
 	body, err := ioutil.ReadAll(res.Body)
 	fmt.Println(string(body))
-	if (string(body) == "Unauthorized") {
-		return c.Status(http.StatusUnauthorized).JSON(responses.UserResponse{Status: http.StatusUnauthorized, Message: "error", Data: &fiber.Map{"data": "Unauthorized"}})
-	}
-
-	var responseData map[string]interface{}
-	if jsErr := json.Unmarshal(body, &responseData); jsErr != nil {
-		return c.Status(http.StatusInternalServerError).JSON(responses.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": "error unmarshelling response"}})
-	}
 	if err != nil {
 		// handle error
 		return c.Status(http.StatusInternalServerError).JSON(responses.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
 	}
+	
+	if (string(body) == "Unauthorized") {
+		return c.Status(http.StatusUnauthorized).JSON(responses.UserResponse{Status: http.StatusUnauthorized, Message: "error", Data: &fiber.Map{"data": "Unauthorized"}})
+	}
+
+	var responseData models.GetAuth0UserResponse
+	if jsErr := json.Unmarshal(body, &responseData); jsErr != nil {
+		return c.Status(http.StatusInternalServerError).JSON(responses.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": "error unmarshelling response"}})
+	}
+	
 	fmt.Println(responseData)
 
 	return c.Status(http.StatusOK).JSON(responses.UserResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": responseData}})
@@ -153,6 +157,7 @@ func SignUp(c *fiber.Ctx) error {
 			DateOfBirth:  user.DateOfBirth,
 			PhotoFileUrl: user.PhotoFileUrl,
 			Phone:        user.Phone,
+			Language: 	  user.Language,
 		},
 	}
 

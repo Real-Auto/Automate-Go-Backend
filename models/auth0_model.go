@@ -1,11 +1,17 @@
 package models
 
+import (
+	"time"
+
+)
+
 // swagger:model
 type UserMetaData struct {
 	Services     string `bson:"services" json:"services" validate:"required"`
 	DateOfBirth  string `bson:"date_of_birth" json:"date_of_birth" validate:"required"`
 	PhotoFileUrl string `bson:"photo_file_url" json:"photo_file_url" validate:"required"`
-	Phone  string `bson:"phone" json:"phone" validate:"required"`
+	Phone  		 string `bson:"phone" json:"phone" validate:"required"`
+	Language	 string `bson:"language" json:"language" validate:"required"`
 }
 
 // swagger:model
@@ -50,6 +56,7 @@ type SignUpPayload struct {
 	Phone        string `bson:"phone" json:"phone" validate:"required"`
 	PhotoFileUrl string `bson:"photo_file_url" json:"photo_file_url" validate:"required"`
 	Services     string `bson:"services" json:"services" validate:"required"`
+	Language	 string `bson:"language" json:"language" validate:"required"`
 	Email        string `bson:"email" json:"email" validate:"required"`
 	Password     string `bson:"password" json:"password" validate:"required"`
 }
@@ -69,6 +76,23 @@ type GetAuth0UserFieldsPayload struct {
     AccessToken string `json:"access_token" validate:"required"`
 }
 
+type GetAuth0UserResponse struct {
+	Sub 			string		`bson:"sub" json:"sub" validate:"required"`
+    GivenName 		string 		`bson:"given_name" json:"given_name" validate:"required"`
+    FamilyName 		string		`bson:"family_name" json:"family_name" validate:"required"`	
+    Nickname		string		`bson:"nickname" json:"nickname" validate:"required"`
+    Name 			string		`bson:"name" json:"name" validate:"required"`
+    Picture			string		`bson:"picture" json:"picture" validate:"required"`
+    UpdatedAt 		time.Time		`bson:"updated_at" json:"updated_at" validate:"required"`
+    Email 			string		`bson:"email" json:"email" validate:"required"`
+	EmailVerified	bool		`bson:"email_verified" json:"email_verified" validate:"required"`
+    Services 		[]string	`bson:"services" json:"services" validate:"required"`
+    DateOfBirth 	string		`bson:"date_of_birth" json:"date_of_birth" validate:"required"`
+    PhotoFileUrl	string		`bson:"photo_file_url" json:"photo_file_url" validate:"required"`
+    Phone			string		`bson:"phone" json:"phone" validate:"required"`
+	Language	 	string		`bson:"language" json:"language" validate:"required"`
+} 
+
 type DeleteAuth0UserPayload struct {
 	UserId string `bson:"user_id" json:"user_id" validate:"required"`
 	AccessToken string `bson:"access_token" json:"access_token"`
@@ -83,6 +107,7 @@ type UpdateAuth0UserPayload struct {
 	Phone        string `bson:"phone,omitempty" json:"phone,omitempty"`
 	PhotoFileUrl string `bson:"photo_file_url,omitempty" json:"photo_file_url,omitempty"`
 	Services     string `bson:"services,omitempty" json:"services,omitempty"`
+	Language	 string `bson:"language,omitempty" json:"language,omitempty" validate:"required"`
 }
 
 type GetManagementApiTokenPayload struct {
