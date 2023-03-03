@@ -86,7 +86,7 @@ type GetAuth0UserResponse struct {
     UpdatedAt 		time.Time		`bson:"updated_at" json:"updated_at" validate:"required"`
     Email 			string		`bson:"email" json:"email" validate:"required"`
 	EmailVerified	bool		`bson:"email_verified" json:"email_verified" validate:"required"`
-    Services 		[]string	`bson:"services" json:"services" validate:"required"`
+    Services 		string	`bson:"services" json:"services" validate:"required"`
     DateOfBirth 	string		`bson:"date_of_birth" json:"date_of_birth" validate:"required"`
     PhotoFileUrl	string		`bson:"photo_file_url" json:"photo_file_url" validate:"required"`
     Phone			string		`bson:"phone" json:"phone" validate:"required"`

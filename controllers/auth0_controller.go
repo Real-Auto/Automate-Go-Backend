@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"github.com/go-playground/validator/v10"
 	"bytes"
-	// "strings"
+	//"strings"
 	"reflect"
 	//"gopkg.in/auth0.v5"
 	// "gopkg.in/auth0.v5/management"
@@ -19,6 +19,7 @@ import (
 	"github.com/auth0/go-auth0/management"
 	"encoding/json"
 	"fmt"
+	"time"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -28,15 +29,38 @@ import (
 var userCollection *mongo.Collection = configs.GetCollection(configs.DB, "users")
 var validate = validator.New()
 
+type MyStruct struct {
+	Field1 string   `json:"field1"`
+	Field2 string `json:"field2"`
+}
+
 func Temp(c *fiber.Ctx) error {
+	fmt.Println(middleware.Auth0TokenVar)
 	res, err := middleware.GetManagementApiToken()
 	if err != nil {
 		fmt.Println(reflect.TypeOf(err))
 		fmt.Println(err)
-		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err}})
+		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err.Error()}})
 	}
 
-	return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "success", Data: &fiber.Map{"data": res}})
+	return c.Status(http.StatusOK).JSON(responses.UserResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": res}})
+}
+
+func Temp2(c *fiber.Ctx) error {
+	fmt.Println(middleware.Auth0TokenVar.ExpiresIn)
+	fmt.Println(middleware.Expiration)
+	// convert to time object
+	expiryTime := time.Unix(middleware.Expiration, 0)
+
+	// check if the expiry time has passed
+	if time.Now().After(expiryTime) {
+		// access token has expired, take appropriate action
+		fmt.Println("expired.." + " time now is: " + time.Now().Format("2006-01-02 15:04:05") + "\nexpiration time is: " + expiryTime.Format("2006-01-02 15:04:05"))
+	} else {
+		// access token is still valid
+		fmt.Println("NOT expired.." + " time now is: " + time.Now().Format("2006-01-02 15:04:05") + "\nexpiration time is: " + expiryTime.Format("2006-01-02 15:04:05"))
+	}
+	return c.Status(http.StatusOK).JSON(responses.UserResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": "token printed to console"}})
 }
 
 // swagger:operation GET /GetUser user GetUser
@@ -102,7 +126,7 @@ func GetUser(c *fiber.Ctx) error {
 	
 	if (string(body) == "Unauthorized") {
 		return c.Status(http.StatusUnauthorized).JSON(responses.UserResponse{Status: http.StatusUnauthorized, Message: "error", Data: &fiber.Map{"data": "Unauthorized"}})
-	}
+	} 
 
 	var responseData models.GetAuth0UserResponse
 	if jsErr := json.Unmarshal(body, &responseData); jsErr != nil {

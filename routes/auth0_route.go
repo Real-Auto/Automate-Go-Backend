@@ -18,6 +18,7 @@ func auth0Route(app *fiber.App) {
     userPrivate.Patch("/updateUser", controllers.UpdateUser)
     userPrivate.Delete("/deleteUser", controllers.DeleteUser)
     userPrivate.Get("/temp", controllers.Temp)
+    userPrivate.Get("/temp2", controllers.Temp2)
     //implement logout endpoint
 
     // public routes

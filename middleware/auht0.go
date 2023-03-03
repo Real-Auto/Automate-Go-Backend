@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"bytes"
+	"errors"
+	"time"
 )
 
 type Auth0Token struct {
@@ -17,6 +19,10 @@ type Auth0Token struct {
 	Error 		string `json:"error,omitempty"`
 	ErrorDescription		string `json:"error_description,omitempty"`
 }
+var Now int64;
+var Expiration int64;
+
+var Auth0TokenVar Auth0Token;
 
 // func GetManagementApiToken(client_id string, client_secret string) (*Auth0Token, error) {
 //     // ...
@@ -36,7 +42,7 @@ func GetManagementApiToken() (Auth0Token, error) {
 
 	model := models.GetManagementApiTokenPayload {
 		GrantType: "client_credentials",
-		ClientId: "sdf",
+		ClientId: configs.EnvAuth0ClientId(),
 		ClientSecret: configs.EnvAuth0ClientSecret(),
 		Audience: configs.EnvGetManagementApiAudience(),
 	}
@@ -47,10 +53,10 @@ func GetManagementApiToken() (Auth0Token, error) {
 		return Auth0Token{}, err
 		
 	}
-	fmt.Println(payload)
-	fmt.Println(bytes.NewBuffer(payload))
+	// fmt.Println(payload)
+	// fmt.Println(bytes.NewBuffer(payload))
 
-	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(payload))
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	req.Header.Add("content-type", "application/json")
 	if err != nil {
 		return Auth0Token{}, err
@@ -63,22 +69,23 @@ func GetManagementApiToken() (Auth0Token, error) {
 	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
+	fmt.Println(string(body))
 	if err != nil {
 		// handle error
 		return Auth0Token{}, err
 	}	
 
-	var responseData Auth0Token;
-	if jsErr := json.Unmarshal(body, &responseData); jsErr != nil {
+	if jsErr := json.Unmarshal(body, &Auth0TokenVar); jsErr != nil {
 		return Auth0Token{}, jsErr
 	}
 
-	// // invalid credentials
-	// if (responseData.Error != "") {
-	// 	return Auth0Token{}, json.UnmarshalTypeError{responseData}
-	// }
-	// fmt.Println(res)
-	fmt.Println(string(body))
+	// invalid credentials
+	if (Auth0TokenVar.Error != "") {
+		return Auth0Token{}, errors.New("invalid credentials")
+	}
 
-	return responseData, nil
+	Now = time.Now().Unix()
+	Expiration = Now + int64(Auth0TokenVar.ExpiresIn)
+
+	return Auth0TokenVar, nil
 }
