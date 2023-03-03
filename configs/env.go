@@ -1,10 +1,10 @@
 package configs
 
 import (
+	"github.com/joho/godotenv"
 	"log"
 	"os"
-
-	"github.com/joho/godotenv"
+	"strings"
 )
 
 // Write functions for getting environment variables here
@@ -43,6 +43,42 @@ func EnvAuth0Connection() string {
 	}
 
 	return os.Getenv("CONNECTION")
+}
+
+func EnvAuth0Domain() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	return os.Getenv("AUTH0_DOMAIN")
+}
+
+func EnvAuth0DomainByItself() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	return os.Getenv("AUTH0_DOMAIN_BY_ITSELF")
+}
+
+func EnvAuth0Domain() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	return os.Getenv("AUTH0_DOMAIN")
+}
+
+func EnvAuth0DomainByItself() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	return os.Getenv("AUTH0_DOMAIN_BY_ITSELF")
 }
 
 func EnvAuth0ApiAudience() string {
@@ -106,4 +142,33 @@ func EnvAuth0DeleteUserEndpoint() string {
 	}
 
 	return os.Getenv("AUTH0_DELETE_USER_ENDPOINT")
+}
+
+func EnvAuth0Issuer() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	return os.Getenv("AUTH0_ISSUER")
+}
+
+func EnvGetUserScopes() []string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	scopesStr := os.Getenv("AUTH0_GET_USER_SCOPES")
+	scopes := strings.Split(scopesStr, ",")
+	return scopes
+}
+
+func EnvGetManagementApiAudience() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	return os.Getenv("MANAGEMENT_API_AUDIENCE")
 }

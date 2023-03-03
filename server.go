@@ -41,11 +41,21 @@ import (
 	"Automate-Go-Backend/routes"
 
 	"github.com/gofiber/fiber/v2"
+
+
+
+
 )
 
 func main() {
 
 	app := fiber.New()
+
+
+
+
+	// Add the middleware to all endpoints
+	// app.Use("/user-private/*", fiberHandler)
 
 	//run database
 	configs.ConnectDB()
@@ -57,5 +67,5 @@ func main() {
 		return c.JSON(&fiber.Map{"data": "Hello from Fiber & mongoDB"})
 	})
 
-	app.Listen(":3000")
+    app.Listen(":8080")
 }
