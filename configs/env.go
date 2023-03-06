@@ -1,10 +1,15 @@
 package configs
 
 import (
-    "log"
-    "os"
-    "github.com/joho/godotenv"
-    "strings"
+	// "fmt"
+	"log"
+	"os"
+	"strings"
+
+	"github.com/joho/godotenv"
+
+	// "github.com/gofiber/fiber/v2"
+	// "encoding/json"
 )
 
 // Write functions for getting environment variables here
@@ -172,8 +177,6 @@ func EnvGetUsersCollectionName() string {
 
     return os.Getenv("USERS_COLLECTION_NAME")
 }
-
-
 
 
 

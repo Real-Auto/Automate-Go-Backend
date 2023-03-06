@@ -1,0 +1,10 @@
+{
+    "questions": [
+        {
+            "Question": "where do I input my form of payment?", 
+            "Answer": "in the settings."},
+        {
+            "Question": "where do I change my password?", 
+            "Answer": "go to the settings and click on change password."}
+    ]
+}
