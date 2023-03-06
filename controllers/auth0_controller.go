@@ -26,7 +26,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var userCollection *mongo.Collection = configs.GetCollection(configs.DB, "users")
+var userCollection *mongo.Collection = configs.GetCollection(configs.DB, configs.EnvGetDatabaseName())
+
 var validate = validator.New()
 
 type MyStruct struct {

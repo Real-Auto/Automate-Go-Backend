@@ -155,6 +155,24 @@ func EnvGetManagementApiAudience () string {
     return os.Getenv("MANAGEMENT_API_AUDIENCE")
 }
 
+func EnvGetDatabaseName() string {
+    err := godotenv.Load();
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("DATABASE_NAME")
+}
+
+func EnvGetUsersCollectionName() string {
+    err := godotenv.Load();
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("USERS_COLLECTION_NAME")
+}
+
 
 
 
