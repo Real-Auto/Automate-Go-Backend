@@ -183,6 +183,8 @@ func SignUp(c *fiber.Ctx) error {
 			PhotoFileUrl: user.PhotoFileUrl,
 			Phone:        user.Phone,
 			Language: 	  user.Language,
+			CreationDate: time.Now().UTC(),
+			LastUpdated:  time.Now().UTC(),
 		},
 	}
 
