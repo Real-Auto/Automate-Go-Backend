@@ -1,10 +1,15 @@
 package configs
 
 import (
-    "log"
-    "os"
-    "github.com/joho/godotenv"
-    "strings"
+	// "fmt"
+	"log"
+	"os"
+	"strings"
+
+	"github.com/joho/godotenv"
+
+	// "github.com/gofiber/fiber/v2"
+	// "encoding/json"
 )
 
 // Write functions for getting environment variables here
@@ -155,7 +160,23 @@ func EnvGetManagementApiAudience () string {
     return os.Getenv("MANAGEMENT_API_AUDIENCE")
 }
 
+func EnvGetDatabaseName() string {
+    err := godotenv.Load();
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
 
+    return os.Getenv("DATABASE_NAME")
+}
+
+func EnvGetUsersCollectionName() string {
+    err := godotenv.Load();
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+    return os.Getenv("USERS_COLLECTION_NAME")
+}
 
 
 

@@ -7,6 +7,6 @@ import (
 )
 
 func checkrRoutes(app *fiber.App) {
-	//All routes related to users comes here
+	// All routes related to users comes here
 	app.Post("/GetUser", controllers.DumbFunction)
 }

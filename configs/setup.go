@@ -7,10 +7,13 @@ import (
     "time"
     "go.mongodb.org/mongo-driver/mongo"
     "go.mongodb.org/mongo-driver/mongo/options"
+    // "go.mongodb.org/mongo-driver/bson"
+    // "go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func ConnectDB() *mongo.Client  {
     client, err := mongo.NewClient(options.Client().ApplyURI(EnvMongoURI()))
+      
     if err != nil {
         log.Fatal(err)
     }
@@ -35,6 +38,6 @@ var DB *mongo.Client = ConnectDB()
 
 //getting database collections
 func GetCollection(client *mongo.Client, collectionName string) *mongo.Collection {
-    collection := client.Database("database").Collection(collectionName)
+    collection := client.Database(EnvGetDatabaseName()).Collection(collectionName)
     return collection
 }

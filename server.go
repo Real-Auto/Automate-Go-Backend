@@ -58,7 +58,7 @@ func main() {
 
 	//run database
 	configs.ConnectDB()
-
+	
 	//routes
 	routes.RouteList(app)
 

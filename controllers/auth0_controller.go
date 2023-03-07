@@ -26,7 +26,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var userCollection *mongo.Collection = configs.GetCollection(configs.DB, "users")
+var userCollection *mongo.Collection = configs.GetCollection(configs.DB, configs.EnvGetDatabaseName())
+
 var validate = validator.New()
 
 type MyStruct struct {
@@ -479,7 +480,7 @@ func UpdateUser(c *fiber.Ctx) error {
 
 
 
-	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": "data"}})
+	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": "user updated successfully"}})
 }
 
 // swagger:operation POST /deleteUser user
