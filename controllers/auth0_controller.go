@@ -7,10 +7,12 @@ import (
 	"Automate-Go-Backend/responses"
 
 	"bytes"
+
 	"github.com/go-playground/validator/v10"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+
 	//"strings"
 	"reflect"
 	//"gopkg.in/auth0.v5"
@@ -18,15 +20,17 @@ import (
 	// "github.com/auth0/go-auth0"
 	"encoding/json"
 	"fmt"
-	"github.com/auth0/go-auth0/management"
-	"github.com/gofiber/fiber/v2"
 	"io/ioutil"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/auth0/go-auth0/management"
+	"github.com/gofiber/fiber/v2"
 )
 
-var userCollection *mongo.Collection = configs.GetCollection(configs.DB, "users")
+var userCollection *mongo.Collection = configs.GetCollection(configs.DB, configs.EnvGetDatabaseName())
+
 var validate = validator.New()
 
 type MyStruct struct {
@@ -182,6 +186,8 @@ func SignUp(c *fiber.Ctx) error {
 			PhotoFileUrl: user.PhotoFileUrl,
 			Phone:        user.Phone,
 			Language:     user.Language,
+			CreationDate: time.Now().UTC(),
+			LastUpdated:  time.Now().UTC(),
 		},
 	}
 
@@ -477,7 +483,7 @@ func UpdateUser(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": err2}})
 	}
 
-	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": "data"}})
+	return c.Status(http.StatusCreated).JSON(responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": "user updated successfully"}})
 }
 
 // swagger:operation POST /deleteUser deleteUser
