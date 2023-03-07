@@ -44,6 +44,9 @@ func NewAutomateAPIAPI(spec *loads.Document) *AutomateAPIAPI {
 
 		JSONProducer: runtime.JSONProducer(),
 
+		CheckHandler: CheckHandlerFunc(func(params CheckParams) middleware.Responder {
+			return middleware.NotImplemented("operation Check has not yet been implemented")
+		}),
 		UserGetUserHandler: user.GetUserHandlerFunc(func(params user.GetUserParams) middleware.Responder {
 			return middleware.NotImplemented("operation user.GetUser has not yet been implemented")
 		}),
@@ -98,6 +101,8 @@ type AutomateAPIAPI struct {
 	//   - application/json
 	JSONProducer runtime.Producer
 
+	// CheckHandler sets the operation handler for the check operation
+	CheckHandler CheckHandler
 	// UserGetUserHandler sets the operation handler for the get user operation
 	UserGetUserHandler user.GetUserHandler
 	// UserLoginHandler sets the operation handler for the login operation
@@ -187,6 +192,9 @@ func (o *AutomateAPIAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
+	if o.CheckHandler == nil {
+		unregistered = append(unregistered, "CheckHandler")
+	}
 	if o.UserGetUserHandler == nil {
 		unregistered = append(unregistered, "user.GetUserHandler")
 	}
@@ -293,6 +301,10 @@ func (o *AutomateAPIAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/Check"] = NewCheck(o.context, o.CheckHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}

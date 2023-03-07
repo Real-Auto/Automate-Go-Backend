@@ -33,6 +33,21 @@ func init() {
   "host": "0.0.0.0",
   "basePath": "/",
   "paths": {
+    "/Check": {
+      "get": {
+        "description": "This endpoint returns a confirmation message.",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "check message",
+        "operationId": "Check",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/GetUser": {
       "get": {
         "description": "This endpoint returns a user object.",
@@ -407,6 +422,21 @@ func init() {
   "host": "0.0.0.0",
   "basePath": "/",
   "paths": {
+    "/Check": {
+      "get": {
+        "description": "This endpoint returns a confirmation message.",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "check message",
+        "operationId": "Check",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/GetUser": {
       "get": {
         "description": "This endpoint returns a user object.",

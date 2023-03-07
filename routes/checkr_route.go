@@ -8,5 +8,5 @@ import (
 
 func checkrRoutes(app *fiber.App) {
 	// All routes related to users comes here
-	app.Post("/GetUser", controllers.DumbFunction)
+	app.Post("/Check", controllers.DumbFunction)
 }

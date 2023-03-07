@@ -248,6 +248,16 @@ paths:
             responses: 
                 '200':
                     description: OK
+    /Check:
+        get:
+            description: This endpoint returns a confirmation message.
+            operationId: Check
+            produces:
+                - application/json
+            summary: check message
+            responses: 
+                '200':
+                    description: OK
 produces:
     - application/json
 securityDefinitions:
