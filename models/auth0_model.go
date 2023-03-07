@@ -7,11 +7,13 @@ import (
 
 // swagger:model
 type UserMetaData struct {
-	Services     string `bson:"services" json:"services" validate:"required"`
-	DateOfBirth  string `bson:"date_of_birth" json:"date_of_birth" validate:"required"`
-	PhotoFileUrl string `bson:"photo_file_url" json:"photo_file_url" validate:"required"`
-	Phone  		 string `bson:"phone" json:"phone" validate:"required"`
-	Language	 string `bson:"language" json:"language" validate:"required"`
+	Services     string 	`bson:"services" json:"services" validate:"required"`
+	DateOfBirth  string 	`bson:"date_of_birth" json:"date_of_birth" validate:"required"`
+	PhotoFileUrl string 	`bson:"photo_file_url" json:"photo_file_url" validate:"required"`
+	Phone  		 string 	`bson:"phone" json:"phone" validate:"required"`
+	Language	 string 	`bson:"language" json:"language" validate:"required"`
+	CreationDate time.Time 	`bson:"creation_date" json:"creation_date" validate:"required"`
+	LastUpdated	 time.Time 	`bson:"last_updated" json:"last_updated" validate:"required"`
 }
 
 // swagger:model
@@ -49,16 +51,16 @@ type Auth0UserChangePassword struct {
 
 // swagger:model
 type SignUpPayload struct {
-	FirstName    string `bson:"first_name" json:"first_name" validate:"required"`
-	LastName     string `bson:"last_name" json:"last_name" validate:"required"`
-	Name         string `bson:"name" json:"name" validate:"required"`
-	DateOfBirth  string `bson:"date_of_birth" json:"date_of_birth" validate:"required"`
-	Phone        string `bson:"phone" json:"phone" validate:"required"`
-	PhotoFileUrl string `bson:"photo_file_url" json:"photo_file_url" validate:"required"`
-	Services     string `bson:"services" json:"services" validate:"required"`
-	Language	 string `bson:"language" json:"language" validate:"required"`
-	Email        string `bson:"email" json:"email" validate:"required"`
-	Password     string `bson:"password" json:"password" validate:"required"`
+	FirstName    string 	`bson:"first_name" json:"first_name" validate:"required"`
+	LastName     string 	`bson:"last_name" json:"last_name" validate:"required"`
+	Name         string 	`bson:"name" json:"name" validate:"required"`
+	DateOfBirth  string 	`bson:"date_of_birth" json:"date_of_birth" validate:"required"`
+	Phone        string 	`bson:"phone" json:"phone" validate:"required"`
+	PhotoFileUrl string 	`bson:"photo_file_url" json:"photo_file_url" validate:"required"`
+	Services     string 	`bson:"services" json:"services" validate:"required"`
+	Language	 string 	`bson:"language" json:"language" validate:"required"`
+	Email        string 	`bson:"email" json:"email" validate:"required"`
+	Password     string 	`bson:"password" json:"password" validate:"required"`
 }
 
 type LoginPayload struct {
@@ -83,14 +85,16 @@ type GetAuth0UserResponse struct {
     Nickname		string		`bson:"nickname" json:"nickname" validate:"required"`
     Name 			string		`bson:"name" json:"name" validate:"required"`
     Picture			string		`bson:"picture" json:"picture" validate:"required"`
-    UpdatedAt 		time.Time		`bson:"updated_at" json:"updated_at" validate:"required"`
+    UpdatedAt 		time.Time	`bson:"updated_at" json:"updated_at" validate:"required"`
     Email 			string		`bson:"email" json:"email" validate:"required"`
 	EmailVerified	bool		`bson:"email_verified" json:"email_verified" validate:"required"`
-    Services 		string	`bson:"services" json:"services" validate:"required"`
+    Services 		string		`bson:"services" json:"services" validate:"required"`
     DateOfBirth 	string		`bson:"date_of_birth" json:"date_of_birth" validate:"required"`
     PhotoFileUrl	string		`bson:"photo_file_url" json:"photo_file_url" validate:"required"`
     Phone			string		`bson:"phone" json:"phone" validate:"required"`
 	Language	 	string		`bson:"language" json:"language" validate:"required"`
+	CreationDate	time.Time 	`bson:"creation_date" json:"creation_date" validate:"required"`
+	LastUpdated	 	time.Time	`bson:"last_updated" json:"last_updated" validate:"required"`
 } 
 
 type DeleteAuth0UserPayload struct {
