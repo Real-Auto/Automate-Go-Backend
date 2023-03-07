@@ -1,4 +1,13 @@
-basePath: /v1
+swagger: '2.0'
+basePath: /
+host: 0.0.0.0
+info:
+    title: Automate API
+    version: 0.0.1
+    description:
+        This is a simple todo list API
+        illustrating go-swagger codegen
+        capabilities.
 consumes:
     - application/json
 definitions:
@@ -34,7 +43,7 @@ definitions:
             user_metadata:
                 $ref: '#/definitions/UserMetaData'
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     Auth0UserChangePassword:
         properties:
             client_id:
@@ -47,7 +56,7 @@ definitions:
                 type: string
                 x-go-name: Email
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     Auth0UserLogin:
         properties:
             audience:
@@ -75,14 +84,14 @@ definitions:
                 type: string
                 x-go-name: Email
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     ChangePasswordPayload:
         properties:
             email:
                 type: string
                 x-go-name: Email
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     EditUserPayload:
         properties:
             date_of_birth:
@@ -107,14 +116,14 @@ definitions:
                 type: string
                 x-go-name: Services
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     GetAuth0UserFieldsPayload:
         properties:
             access_token:
                 type: string
                 x-go-name: AccessToken
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     LoginPayload:
         properties:
             email:
@@ -124,7 +133,7 @@ definitions:
                 type: string
                 x-go-name: Password
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     SignUpPayload:
         properties:
             date_of_birth:
@@ -155,7 +164,7 @@ definitions:
                 type: string
                 x-go-name: Services
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     UserMetaData:
         properties:
             date_of_birth:
@@ -171,10 +180,7 @@ definitions:
                 type: string
                 x-go-name: Services
         type: object
-        x-go-package: Automate-Go-Backend/models
-info:
-    description: 'Title: AutoMate API'
-    version: 0.0.1
+        x-go-package: Automate-Go-Backend/databaseModels
 paths:
     /GetUser:
         get:
@@ -185,20 +191,29 @@ paths:
             summary: Get a user.
             tags:
                 - user
+            responses: 
+                '200':
+                    description: OK
     /changePassword:
         post:
             description: This endpoint returns a confirmation message.
-            operationId: user
+            operationId: changePassword
             produces:
                 - application/json
             summary: changePassword endpoint
+            responses: 
+                '200':
+                    description: OK
     /deleteUser:
         post:
             description: This endpoint returns a confirmation message.
-            operationId: user
+            operationId: deleteUser
             produces:
                 - application/json
             summary: delete User endpoint
+            responses: 
+                '200':
+                    description: OK
     /login:
         post:
             description: This endpoint returns a confirmation message.
@@ -208,6 +223,9 @@ paths:
             summary: Login in endpoint
             tags:
                 - user
+            responses: 
+                '200':
+                    description: OK
     /signUp:
         post:
             description: This endpoint returns a confirmation message.
@@ -217,29 +235,39 @@ paths:
             summary: Sign up endpoint
             tags:
                 - user
+            responses: 
+                '200':
+                    description: OK
     /updateUser:
         post:
             description: This endpoint returns a confirmation message.
-            operationId: user
+            operationId: updateUser
             produces:
                 - application/json
             summary: update User endpoint
+            responses: 
+                '200':
+                    description: OK
+    /Check:
+        get:
+            description: This endpoint returns a confirmation message.
+            operationId: Check
+            produces:
+                - application/json
+            summary: check message
+            responses: 
+                '200':
+                    description: OK
 produces:
     - application/json
 securityDefinitions:
-    api_key:
-        in: header
-        name: KEY
-        type: apiKey
     oauth2:
         authorizationUrl: /oauth2/auth
         flow: accessCode
-        in: header
         scopes:
             bar: foo
         tokenUrl: /oauth2/token
         type: oauth2
-swagger: "2.0"
 x-meta-array:
     - value1
     - value2
