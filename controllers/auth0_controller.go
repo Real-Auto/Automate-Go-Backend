@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"Automate-Go-Backend/configs"
+	"Automate-Go-Backend/databaseModels"
 	"Automate-Go-Backend/middleware"
-	"Automate-Go-Backend/models"
 	"Automate-Go-Backend/responses"
 
 	"bytes"
@@ -82,10 +82,10 @@ func Temp2(c *fiber.Ctx) error {
 //
 //	200:
 //	  description: User object
-//	  schema:
+//	  models:
 //	    "$ref": "#/definitions/Auth0User"
 func GetUser(c *fiber.Ctx) error {
-	var user models.GetAuth0UserFieldsPayload
+	var user databaseModels.GetAuth0UserFieldsPayload
 	validate := validator.New()
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
@@ -132,7 +132,7 @@ func GetUser(c *fiber.Ctx) error {
 		return c.Status(http.StatusUnauthorized).JSON(responses.UserResponse{Status: http.StatusUnauthorized, Message: "error", Data: &fiber.Map{"data": "Unauthorized"}})
 	}
 
-	var responseData models.GetAuth0UserResponse
+	var responseData databaseModels.GetAuth0UserResponse
 	if jsErr := json.Unmarshal(body, &responseData); jsErr != nil {
 		return c.Status(http.StatusInternalServerError).JSON(responses.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": "error unmarshelling response"}})
 	}
@@ -159,7 +159,7 @@ func GetUser(c *fiber.Ctx) error {
 //	200:
 //	  description: Success message
 func SignUp(c *fiber.Ctx) error {
-	var user models.SignUpPayload
+	var user databaseModels.SignUpPayload
 	validate := validator.New()
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
@@ -172,7 +172,7 @@ func SignUp(c *fiber.Ctx) error {
 	}
 
 	// create user for model
-	newUser := models.Auth0User{
+	newUser := databaseModels.Auth0User{
 		ClientId:   configs.EnvAuth0ClientId(),
 		Connection: configs.EnvAuth0Connection(),
 		Email:      user.Email,
@@ -180,7 +180,7 @@ func SignUp(c *fiber.Ctx) error {
 		GivenName:  user.FirstName,
 		FamilyName: user.LastName,
 		Name:       user.Name,
-		UserMetaData: models.UserMetaData{
+		UserMetaData: databaseModels.UserMetaData{
 			Services:     user.Services,
 			DateOfBirth:  user.DateOfBirth,
 			PhotoFileUrl: user.PhotoFileUrl,
@@ -251,7 +251,7 @@ func SignUp(c *fiber.Ctx) error {
 //	200:
 //	  description: Success message
 func Login(c *fiber.Ctx) error {
-	var user models.LoginPayload
+	var user databaseModels.LoginPayload
 	validate := validator.New()
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
@@ -264,7 +264,7 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	// create user for model
-	newUser := models.Auth0UserLogin{
+	newUser := databaseModels.Auth0UserLogin{
 		GrantType:    "password",
 		ClientId:     configs.EnvAuth0ClientId(),
 		ClientSecret: configs.EnvAuth0ClientSecret(),
@@ -329,7 +329,7 @@ func Login(c *fiber.Ctx) error {
 //	200:
 //	  description: Success message
 func ChangePassword(c *fiber.Ctx) error {
-	var user models.ChangePasswordPayload
+	var user databaseModels.ChangePasswordPayload
 	validate := validator.New()
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
@@ -342,7 +342,7 @@ func ChangePassword(c *fiber.Ctx) error {
 	}
 
 	// create user for model
-	newUser := models.Auth0UserChangePassword{
+	newUser := databaseModels.Auth0UserChangePassword{
 		ClientId:   configs.EnvAuth0ClientId(),
 		Email:      user.Email,
 		Connection: configs.EnvAuth0Connection(),
@@ -402,7 +402,7 @@ func ChangePassword(c *fiber.Ctx) error {
 //	200:
 //	  description: Success message
 func UpdateUser(c *fiber.Ctx) error {
-	var user models.UpdateAuth0UserPayload
+	var user databaseModels.UpdateAuth0UserPayload
 
 	// validate request body
 	if err := c.BodyParser(&user); err != nil {
@@ -419,7 +419,7 @@ func UpdateUser(c *fiber.Ctx) error {
 	fmt.Println(user_id_by_itself)
 
 	// check if user exists on mongo end
-	var mongo_user models.Auth0User
+	var mongo_user databaseModels.Auth0User
 
 	objId, _ := primitive.ObjectIDFromHex(user_id_by_itself)
 
@@ -502,7 +502,7 @@ func UpdateUser(c *fiber.Ctx) error {
 //	200:
 //	  description: Success message
 func DeleteUser(c *fiber.Ctx) error {
-	var user models.DeleteAuth0UserPayload
+	var user databaseModels.DeleteAuth0UserPayload
 
 	//validate the request body
 	if err := c.BodyParser(&user); err != nil {
@@ -519,7 +519,7 @@ func DeleteUser(c *fiber.Ctx) error {
 	fmt.Println(user_id_by_itself)
 
 	// check if user exists on mongo end
-	var mongo_user models.Auth0User
+	var mongo_user databaseModels.Auth0User
 
 	objId, _ := primitive.ObjectIDFromHex(user_id_by_itself)
 

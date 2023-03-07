@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"Automate-Go-Backend/models"
+	"Automate-Go-Backend/databaseModels"
 	"Automate-Go-Backend/responses"
 	"context"
 
@@ -16,7 +16,7 @@ import (
 
 // func CreateUser(c *fiber.Ctx) error {
 // 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-// 	var user models.User
+// 	var user databaseModels.User
 // 	defer cancel()
 
 // 	//validate the request body
@@ -29,7 +29,7 @@ import (
 // 		return c.Status(http.StatusBadRequest).JSON(responses.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": validationErr.Error()}})
 // 	}
 
-// 	newUser := models.User{
+// 	newUser := databaseModels.User{
 // 		FirstName:    user.FirstName,
 // 		LastName:     user.LastName,
 // 		DateOfBirth:  user.DateOfBirth,
@@ -51,7 +51,7 @@ import (
 // func EditProfileInformation(c *fiber.Ctx) error {
 // 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 // 	userId := c.Params("userId")
-// 	var user models.EditProfileInformationPayload
+// 	var user databaseModels.EditProfileInformationPayload
 // 	defer cancel()
 
 // 	objId, _ := primitive.ObjectIDFromHex(userId)
@@ -68,7 +68,7 @@ import (
 // 	}
 
 // 	// retrieve current meta_data information
-// 	var currentUser models.Auth0User
+// 	var currentUser databaseModels.Auth0User
 // 	err := userCollection.FindOne(ctx, bson.M{"_id": objId}).Decode(&currentUser)
 
 // 	if err != nil {
@@ -110,7 +110,7 @@ import (
 // 	}
 
 // 	//get updated user details
-// 	var updatedUser models.Auth0User
+// 	var updatedUser databaseModels.Auth0User
 
 // 	if result.MatchedCount == 1 {
 // 		err := userCollection.FindOne(ctx, bson.M{"_id": objId}).Decode(&updatedUser)
@@ -148,7 +148,7 @@ func DeleteAUser(c *fiber.Ctx) error {
 
 func GetAllUsers(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	var users []models.Auth0User
+	var users []databaseModels.Auth0User
 	defer cancel()
 
 	results, err := userCollection.Find(ctx, bson.M{})
@@ -160,7 +160,7 @@ func GetAllUsers(c *fiber.Ctx) error {
 	//reading from the db in an optimal way
 	defer results.Close(ctx)
 	for results.Next(ctx) {
-		var singleUser models.Auth0User
+		var singleUser databaseModels.Auth0User
 		if err = results.Decode(&singleUser); err != nil {
 			return c.Status(http.StatusInternalServerError).JSON(responses.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
 		}

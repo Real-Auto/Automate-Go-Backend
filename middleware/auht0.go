@@ -2,27 +2,28 @@ package middleware
 
 import (
 	"Automate-Go-Backend/configs"
-	"Automate-Go-Backend/models"
+	"Automate-Go-Backend/databaseModels"
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"bytes"
-	"errors"
 	"time"
 )
 
 type Auth0Token struct {
-    AccessToken string `json:"access_token,omitempty"`
-    TokenType   string `json:"token_type,omitempty"`
-    ExpiresIn   int    `json:"expires_in,omitempty"`
-	Error 		string `json:"error,omitempty"`
-	ErrorDescription		string `json:"error_description,omitempty"`
+	AccessToken      string `json:"access_token,omitempty"`
+	TokenType        string `json:"token_type,omitempty"`
+	ExpiresIn        int    `json:"expires_in,omitempty"`
+	Error            string `json:"error,omitempty"`
+	ErrorDescription string `json:"error_description,omitempty"`
 }
-var Now int64;
-var Expiration int64;
 
-var Auth0TokenVar Auth0Token;
+var Now int64
+var Expiration int64
+
+var Auth0TokenVar Auth0Token
 
 // func GetManagementApiToken(client_id string, client_secret string) (*Auth0Token, error) {
 //     // ...
@@ -40,18 +41,18 @@ var Auth0TokenVar Auth0Token;
 func GetManagementApiToken() (Auth0Token, error) {
 	url := configs.EnvAuth0LoginEndpoint()
 
-	model := models.GetManagementApiTokenPayload {
-		GrantType: "client_credentials",
-		ClientId: configs.EnvAuth0ClientId(),
+	model := databaseModels.GetManagementApiTokenPayload{
+		GrantType:    "client_credentials",
+		ClientId:     configs.EnvAuth0ClientId(),
 		ClientSecret: configs.EnvAuth0ClientSecret(),
-		Audience: configs.EnvGetManagementApiAudience(),
+		Audience:     configs.EnvGetManagementApiAudience(),
 	}
 
 	payload, err := json.Marshal(model)
 	if err != nil {
 		// Handle the error
 		return Auth0Token{}, err
-		
+
 	}
 	// fmt.Println(payload)
 	// fmt.Println(bytes.NewBuffer(payload))
@@ -73,14 +74,14 @@ func GetManagementApiToken() (Auth0Token, error) {
 	if err != nil {
 		// handle error
 		return Auth0Token{}, err
-	}	
+	}
 
 	if jsErr := json.Unmarshal(body, &Auth0TokenVar); jsErr != nil {
 		return Auth0Token{}, jsErr
 	}
 
 	// invalid credentials
-	if (Auth0TokenVar.Error != "") {
+	if Auth0TokenVar.Error != "" {
 		return Auth0Token{}, errors.New("invalid credentials")
 	}
 

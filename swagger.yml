@@ -43,7 +43,7 @@ definitions:
             user_metadata:
                 $ref: '#/definitions/UserMetaData'
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     Auth0UserChangePassword:
         properties:
             client_id:
@@ -56,7 +56,7 @@ definitions:
                 type: string
                 x-go-name: Email
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     Auth0UserLogin:
         properties:
             audience:
@@ -84,14 +84,14 @@ definitions:
                 type: string
                 x-go-name: Email
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     ChangePasswordPayload:
         properties:
             email:
                 type: string
                 x-go-name: Email
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     EditUserPayload:
         properties:
             date_of_birth:
@@ -116,14 +116,14 @@ definitions:
                 type: string
                 x-go-name: Services
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     GetAuth0UserFieldsPayload:
         properties:
             access_token:
                 type: string
                 x-go-name: AccessToken
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     LoginPayload:
         properties:
             email:
@@ -133,7 +133,7 @@ definitions:
                 type: string
                 x-go-name: Password
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     SignUpPayload:
         properties:
             date_of_birth:
@@ -164,7 +164,7 @@ definitions:
                 type: string
                 x-go-name: Services
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
     UserMetaData:
         properties:
             date_of_birth:
@@ -180,7 +180,7 @@ definitions:
                 type: string
                 x-go-name: Services
         type: object
-        x-go-package: Automate-Go-Backend/models
+        x-go-package: Automate-Go-Backend/databaseModels
 paths:
     /GetUser:
         get:
@@ -194,8 +194,6 @@ paths:
             responses: 
                 '200':
                     description: OK
-                    schema:
-                        type: string
     /changePassword:
         post:
             description: This endpoint returns a confirmation message.
@@ -206,8 +204,6 @@ paths:
             responses: 
                 '200':
                     description: OK
-                    schema:
-                        type: string
     /deleteUser:
         post:
             description: This endpoint returns a confirmation message.
@@ -218,8 +214,6 @@ paths:
             responses: 
                 '200':
                     description: OK
-                    schema:
-                        type: string
     /login:
         post:
             description: This endpoint returns a confirmation message.
@@ -232,8 +226,6 @@ paths:
             responses: 
                 '200':
                     description: OK
-                    schema:
-                        type: string
     /signUp:
         post:
             description: This endpoint returns a confirmation message.
@@ -246,8 +238,6 @@ paths:
             responses: 
                 '200':
                     description: OK
-                    schema:
-                        type: string
     /updateUser:
         post:
             description: This endpoint returns a confirmation message.
@@ -258,8 +248,6 @@ paths:
             responses: 
                 '200':
                     description: OK
-                    schema:
-                        type: string
 produces:
     - application/json
 securityDefinitions:
